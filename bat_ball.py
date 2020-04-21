@@ -22,5 +22,20 @@ def main_loop():
 			check_game_over()
 
 
-LeftPressed = 0
-RghitPressed = 0
+leftPressed = 0
+rghitPressed = 0
+
+def on_key_pressed(event):
+	global leftPressed, righttPressed
+	if event.keysym == "Left":
+		leftPressed = 1
+	elif event.keysym == "Right":
+		rightPressed = 1
+
+
+def on_key_release(event):
+	global leftPressed, RightPressed
+	if event.keysym == "Left":
+		LeftPressed = 0
+	elif event.keysym == "right":
+		rightPressed = 0
