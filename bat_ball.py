@@ -1,4 +1,5 @@
 import tkinter
+from tkinter import messagebox
 import time
 
 canvasWidth = 750
@@ -24,8 +25,8 @@ def main_loop():
 leftPressed = 0
 rghitPressed = 0
 
-def on_key_pressed(event):
-	global leftPressed, rightPressed
+def on_key_press(event):
+	global leftPress, rightPressed
 	if event.keysym == "Left":
 		leftPressed = 1
 	elif event.keysym == "Right":
@@ -56,19 +57,19 @@ def move_ball():
 	if ballMoveX > 0 and ballRight > canvasWidth:
 		ballMovex = -ballMoveX
 	if ballMoveX < 0 and ballLeft < 0:
-		balMoveX = -ballMoveX
+		ballMoveX = -ballMoveX
 	if ballMoveY < 0 and ballTop < 0:
 		ballMoveY = -ballMoveY
 	if ballMoveY > 0 and ballBottom > setBatTop and ballBottom < setBatBottom:
 		(batLeft, batTop, batRight, batBottom) = canvas.coords(bat)
 		if ballRight > batLeft and ballLeft < batRight:
 			ballMoveY = -ballMoveY
-	canvas.move(ball, ballMovex, ballMoveY)
+	canvas.move(ball, ballMoveX, ballMoveY)
 
 def check_game_over():
-	(batLeft, ballTop, ballBottom) = canvas.coords(ball)
+	(ballLeft, ballTop, ballRight, ballBottom) = canvas.coords(ball)
 	if ballTop > canvasHeight:
-		playAgain = tkinter.messagebox.askesno(message = "Do you want to play again?" )
+		playAgain = tkinter.messagebox.askyesno(message = "Do you want to play again?")
 		if playAgain == True:
 			reset()
 		else:
@@ -79,4 +80,19 @@ def close():
 	windowOpen = False
 	window.destroy()
 
+def reset():
+	global leftPressed, rightPressed
+	global ballMoveX, ballMoveY
+	leftPressed = 0
+	rightPressed = 0
+	ballMovex = 4
+	ballMoveY = -4
+	canvas.coords(bat, 10, setBatTop, 50, setBatBottom)
+	canvas.coords(ball, 20, setBatTop-10, 30, setBatTop)
+
+window.protocol("WM_DELETE_WINDOW", close)
+window.bind("<KeyPress>", on_key_press)
+window.bind("<KeyRelease>", on_key_release)
+reset()
+main_loop()
 
