@@ -26,7 +26,7 @@ leftPressed = 0
 rghitPressed = 0
 
 def on_key_press(event):
-	global leftPress, rightPressed
+	global leftPressed, rightPressed
 	if event.keysym == "Left":
 		leftPressed = 1
 	elif event.keysym == "Right":
@@ -36,7 +36,7 @@ def on_key_release(event):
 	global leftPressed, rightPressed
 	if event.keysym == "Left":
 		leftPressed = 0
-	elif event.keysym == "right":
+	elif event.keysym == "Right":
 		rightPressed = 0
 
 batSpeed = 6
@@ -55,7 +55,7 @@ def move_ball():
 	global ballMoveX, ballMoveY
 	(ballLeft, ballTop, ballRight, ballBottom) = canvas.coords(ball)
 	if ballMoveX > 0 and ballRight > canvasWidth:
-		ballMovex = -ballMoveX
+		ballMoveX = -ballMoveX
 	if ballMoveX < 0 and ballLeft < 0:
 		ballMoveX = -ballMoveX
 	if ballMoveY < 0 and ballTop < 0:
